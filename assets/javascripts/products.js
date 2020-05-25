@@ -1,0 +1,99 @@
+//cd/EPFL Web Dev/hats_and_things
+
+let hat = {
+  name: '<name>',
+  price: '<price>',
+  color: '<color>',
+  image: '<imageHref>',
+
+  toString: function() {
+    return (this.name + ", color: " + this.color + ", price: " + this.price + ", image: " + this.image)
+  }
+}
+
+
+function Hat(name, price, color, image) {
+  this.name = name;
+  this.price = price;
+  this.color = color;
+  this.image = image;
+}
+
+Hat.prototype.toString = function() {
+  return (this.name + ", color: " + this.color + ", price: " + this.price + ", image: " + this.image);
+}
+
+
+let hats = [
+  new Hat('Baseball cap', '11.99', 'red', 'assets/images/red/hats/1.png'),
+  new Hat('Baseball cap', '11.99', 'blue', 'assets/images/blue/hats/1.png'),
+  new Hat('Baseball cap', '11.99', 'yellow', 'assets/images/yellow/hats/1.png'),
+  new Hat('Baseball cap', '11.99', 'green', 'assets/images/green/hats/1.png'),
+  new Hat('Beanie', '17.99', 'red', 'assets/images/red/hats/2.png'),
+  new Hat('Beanie', '17.99', 'blue', 'assets/images/blue/hats/2.png'),
+  new Hat('Beanie', '17.99', 'green', 'assets/images/green/hats/2.png'),
+  new Hat('Straw hat', '10.99', 'yellow', 'assets/images/yellow/hats/3.png'),
+  new Hat('Straw hat', '10.99', 'blue', 'assets/images/blue/hats/3.png'),
+  new Hat('Trilby', '10.99', 'red', 'assets/images/red/hats/4.png'),
+  new Hat('Trilby', '10.99', 'blue', 'assets/images/blue/hats/4.png'),
+  new Hat('Trilby', '10.99', 'yellow', 'assets/images/yellow/hats/4.png'),
+];
+
+function displayHat(hat) {
+
+  //Creating the HTML element
+
+  let newHat = document.createElement('div');
+  newHat.className += 'accessory col-sm-4';
+
+  let my3 = document.createElement('div');
+  my3.className += 'card my-3';
+
+  let currency = document.createElement('div');
+  currency.className += 'currency btn btn-light disabled';
+  currency.textContent = hat.price;
+
+  let image = document.createElement('img');
+  image.className += 'card-img-top';
+  image.src += hat.image;
+  image.alt = 'Image of ' + hat.name;
+
+  let cardbody = document.createElement('div');
+  cardbody.className += 'card-body text-center';
+
+  let cardtitle = document.createElement('h5');
+  cardtitle.className += 'card-title';
+  cardtitle.textContent = hat.name;
+
+  let cardtext = document.createElement('p');
+  cardtext.className += 'card-text';
+  cardtext.textContent = 'Color: '
+
+  let em = document.createElement('em');
+  em.textContent = hat.color;
+
+  cardtext.appendChild(em);
+
+  let button = document.createElement('button');
+  button.className += 'btn btn-outline-primary';
+  button.textContent = 'Add to wishlist!';
+
+  cardbody.appendChild(cardtitle);
+  cardbody.appendChild(cardtext);
+  cardbody.appendChild(button);
+
+  my3.appendChild(currency);
+  my3.appendChild(image);
+  my3.appendChild(cardbody);
+
+  newHat.appendChild(my3);
+
+  return newHat;
+}
+
+let products = document.getElementById('products')
+products.innerHTML = null;
+
+for (i = 0; i < hats.length; i++) {
+  products.appendChild(displayHat(hats[i]));
+}
