@@ -44,7 +44,7 @@ function displayHat(hat) {
   //Creating the HTML element
 
   let newHat = document.createElement('div');
-  newHat.className += 'accessory col-sm-4';
+  newHat.className += 'accessory col-sm-4 ' + hat.color;
 
   let my3 = document.createElement('div');
   my3.className += 'card my-3';
@@ -97,3 +97,33 @@ products.innerHTML = null;
 for (i = 0; i < hats.length; i++) {
   products.appendChild(displayHat(hats[i]));
 }
+
+//Filter by Color
+
+const filterButtons = document.querySelectorAll('.btn-group .btn')
+
+
+for (i = 0; i < filterButtons.length; i++) {
+  filterButtons[i].className = 'btn btn-outline-secondary';
+}
+
+for (i = 0; i < filterButtons.length; i++) {
+  filterButtons[i].addEventListener('click',
+    function highlightSelectedFilter() {
+      for (i = 0; i < filterButtons.length; i++) {
+        filterButtons[i].className = 'btn btn-outline-secondary';
+      }
+      this.className += ' active'
+    }, false)
+}
+
+let allProducts = products.children;
+
+for (i = 0; i < filterButtons.length; i++) {
+  filterButtons[i].addEventListener('click',
+    function filterHatsByColor() {
+      for (i = 0; i < allProducts.length; i++) {
+        allProducts.item(i).style.display = 'none';
+      }
+      }, false)
+  }
