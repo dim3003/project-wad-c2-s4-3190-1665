@@ -25,18 +25,18 @@ Hat.prototype.toString = function() {
 
 
 let hats = [
-  new Hat('Baseball cap', '11.99', 'red', 'assets/images/red/hats/1.png'),
-  new Hat('Baseball cap', '11.99', 'blue', 'assets/images/blue/hats/1.png'),
-  new Hat('Baseball cap', '11.99', 'yellow', 'assets/images/yellow/hats/1.png'),
-  new Hat('Baseball cap', '11.99', 'green', 'assets/images/green/hats/1.png'),
-  new Hat('Beanie', '17.99', 'red', 'assets/images/red/hats/2.png'),
-  new Hat('Beanie', '17.99', 'blue', 'assets/images/blue/hats/2.png'),
-  new Hat('Beanie', '17.99', 'green', 'assets/images/green/hats/2.png'),
-  new Hat('Straw hat', '10.99', 'yellow', 'assets/images/yellow/hats/3.png'),
-  new Hat('Straw hat', '10.99', 'blue', 'assets/images/blue/hats/3.png'),
-  new Hat('Trilby', '10.99', 'red', 'assets/images/red/hats/4.png'),
-  new Hat('Trilby', '10.99', 'blue', 'assets/images/blue/hats/4.png'),
-  new Hat('Trilby', '10.99', 'yellow', 'assets/images/yellow/hats/4.png'),
+  new Hat('Baseball cap', '11.99', 'Red', 'assets/images/red/hats/1.png'),
+  new Hat('Baseball cap', '11.99', 'Blue', 'assets/images/blue/hats/1.png'),
+  new Hat('Baseball cap', '11.99', 'Yellow', 'assets/images/yellow/hats/1.png'),
+  new Hat('Baseball cap', '11.99', 'Green', 'assets/images/green/hats/1.png'),
+  new Hat('Beanie', '17.99', 'Red', 'assets/images/red/hats/2.png'),
+  new Hat('Beanie', '17.99', 'Blue', 'assets/images/blue/hats/2.png'),
+  new Hat('Beanie', '17.99', 'Green', 'assets/images/green/hats/2.png'),
+  new Hat('Straw hat', '10.99', 'Yellow', 'assets/images/yellow/hats/3.png'),
+  new Hat('Straw hat', '10.99', 'Blue', 'assets/images/blue/hats/3.png'),
+  new Hat('Trilby', '10.99', 'Red', 'assets/images/red/hats/4.png'),
+  new Hat('Trilby', '10.99', 'Blue', 'assets/images/blue/hats/4.png'),
+  new Hat('Trilby', '10.99', 'Yellow', 'assets/images/yellow/hats/4.png'),
 ];
 
 function displayHat(hat) {
@@ -124,6 +124,11 @@ for (i = 0; i < filterButtons.length; i++) {
     function filterHatsByColor() {
       for (i = 0; i < allProducts.length; i++) {
         allProducts.item(i).style.display = 'none';
+        let arrayClass = allProducts.item(i).className.split(' ')
+        if (arrayClass[arrayClass.length - 1] == this.textContent) {
+          allProducts.item(i).style.display = 'block';
+        } else {}
       }
-      }, false)
-  }
+
+    }, false)
+}
