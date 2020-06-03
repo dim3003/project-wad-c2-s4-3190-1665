@@ -98,20 +98,33 @@ for (i = 0; i < hats.length; i++) {
   products.appendChild(displayHat(hats[i]));
 }
 
+
+//Create all button
+let filterButtons = document.querySelectorAll('.btn-group .btn')
+
+let allButton = document.createElement('button');
+allButton.setAttribute('type', 'button');
+allButton.className = 'btn btn-outline-secondary';
+allButton.textContent = 'All';
+
+console.log(filterButtons.length);
+console.log(filterButtons);
+filterButtons.item(filterButtons.length - 1).parentNode.appendChild(allButton);
+
+let filterButtons2 = document.querySelectorAll('.btn-group .btn');
+console.log(filterButtons2.length);
+console.log(filterButtons2);
 //Filter by Color
 
-const filterButtons = document.querySelectorAll('.btn-group .btn')
-
-
-for (i = 0; i < filterButtons.length; i++) {
-  filterButtons[i].className = 'btn btn-outline-secondary';
+for (i = 0; i < filterButtons2.length; i++) {
+  filterButtons2[i].className = 'btn btn-outline-secondary';
 }
 
-for (i = 0; i < filterButtons.length; i++) {
-  filterButtons[i].addEventListener('click',
+for (i = 0; i < filterButtons2.length; i++) {
+  filterButtons2[i].addEventListener('click',
     function highlightSelectedFilter() {
-      for (i = 0; i < filterButtons.length; i++) {
-        filterButtons[i].className = 'btn btn-outline-secondary';
+      for (i = 0; i < filterButtons2.length; i++) {
+        filterButtons2[i].className = 'btn btn-outline-secondary';
       }
       this.className += ' active'
     }, false)
@@ -119,13 +132,17 @@ for (i = 0; i < filterButtons.length; i++) {
 
 let allProducts = products.children;
 
-for (i = 0; i < filterButtons.length; i++) {
-  filterButtons[i].addEventListener('click',
+//addEventListener click filter filterButtons2
+
+for (i = 0; i < filterButtons2.length; i++) {
+  filterButtons2[i].addEventListener('click',
     function filterHatsByColor() {
       for (i = 0; i < allProducts.length; i++) {
         allProducts.item(i).style.display = 'none';
         let arrayClass = allProducts.item(i).className.split(' ')
         if (arrayClass[arrayClass.length - 1] == this.textContent) {
+          allProducts.item(i).style.display = 'block';
+        } else if (this.textContent == 'All') {
           allProducts.item(i).style.display = 'block';
         } else {}
       }
