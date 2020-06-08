@@ -4,7 +4,7 @@ let hat = {
   name: '<name>',
   price: '<price>',
   color: '<color>',
-  image: '<imageHref>',
+  imageHref: '<imageHref>',
 
   toString: function() {
     return (this.name + ", color: " + this.color + ", price: " + this.price + ", image: " + this.image)
@@ -16,7 +16,7 @@ function Accessory(name, price, color, image) {
   this.name = name;
   this.price = price;
   this.color = color;
-  this.image = image;
+  this.imageHref = image;
 }
 
 Accessory.prototype.toString = function() {
@@ -25,18 +25,18 @@ Accessory.prototype.toString = function() {
 
 
 let hats = [
-  new Accessory('Baseball cap', '11.99', 'red', 'assets/images/red/hats/1.png'),
-  new Accessory('Baseball cap', '11.99', 'blue', 'assets/images/blue/hats/1.png'),
-  new Accessory('Baseball cap', '11.99', 'yellow', 'assets/images/yellow/hats/1.png'),
-  new Accessory('Baseball cap', '11.99', 'green', 'assets/images/green/hats/1.png'),
-  new Accessory('Beanie', '17.99', 'red', 'assets/images/red/hats/2.png'),
-  new Accessory('Beanie', '17.99', 'blue', 'assets/images/blue/hats/2.png'),
-  new Accessory('Beanie', '17.99', 'green', 'assets/images/green/hats/2.png'),
-  new Accessory('Straw hat', '10.99', 'yellow', 'assets/images/yellow/hats/3.png'),
-  new Accessory('Straw hat', '10.99', 'blue', 'assets/images/blue/hats/3.png'),
-  new Accessory('Trilby', '10.99', 'red', 'assets/images/red/hats/4.png'),
-  new Accessory('Trilby', '10.99', 'blue', 'assets/images/blue/hats/4.png'),
-  new Accessory('Trilby', '10.99', 'yellow', 'assets/images/yellow/hats/4.png'),
+  new Accessory('Baseball cap', '11.99', 'red', './assets/images/red/hats/1.png'),
+  new Accessory('Baseball cap', '11.99', 'blue', './assets/images/blue/hats/1.png'),
+  new Accessory('Baseball cap', '11.99', 'yellow', './assets/images/yellow/hats/1.png'),
+  new Accessory('Baseball cap', '11.99', 'green', './assets/images/green/hats/1.png'),
+  new Accessory('Beanie', '17.99', 'red', './assets/images/red/hats/2.png'),
+  new Accessory('Beanie', '17.99', 'blue', './assets/images/blue/hats/2.png'),
+  new Accessory('Beanie', '17.99', 'green', './assets/images/green/hats/2.png'),
+  new Accessory('Straw hat', '10.99', 'yellow', './assets/images/yellow/hats/3.png'),
+  new Accessory('Straw hat', '10.99', 'blue', './assets/images/blue/hats/3.png'),
+  new Accessory('Trilby', '10.99', 'red', './assets/images/red/hats/4.png'),
+  new Accessory('Trilby', '10.99', 'blue', './assets/images/blue/hats/4.png'),
+  new Accessory('Trilby', '10.99', 'yellow', './assets/images/yellow/hats/4.png'),
 ];
 
 function displayAccessory(accessory) {
@@ -55,7 +55,7 @@ function displayAccessory(accessory) {
 
   let image = document.createElement('img');
   image.className += 'card-img-top';
-  image.src += accessory.image;
+  image.src += accessory.imageHref;
   image.alt = 'Image of ' + accessory.name;
 
   let cardbody = document.createElement('div');
@@ -159,3 +159,54 @@ filterButtons.forEach(el =>
 /* ----------------------------
 AJAX function to retrieve JSON
 ------------------------------*/
+const navButtonsContainer = document.querySelector('.navbar-nav');
+const navButtons = navButtonsContainer.childNodes;
+
+function loadRemoteAccessories(el) {
+
+  let navTitle = el.textContent.replace(/\s+/g, '');
+
+  let request = new XMLHttpRequest();
+  if (navTitle == 'Socks') {
+    request.open('GET', './socks.json');
+
+  } else if (navTitle == 'Sunglasses') {
+    request.open('GET', './sunglasses.json');
+  } else {
+    console.log('Could not find the JSON')
+  }
+
+  request.send();
+  request.onload = () => {
+    let accessories = JSON.parse(request.responseText);
+    //REMOVE CURRENT
+    products.innerHTML = '';
+    //RENDER NEW
+    accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
+    let select = document.querySelector('.active');
+    filterAccesoriesByColor(select);
+  }
+}
+
+//Hats BUTTONS
+navButtons.item(1).addEventListener('click',
+  function() {
+    products.innerHTML = '';
+
+    let accessories = hats;
+    accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
+    let select = document.querySelector('.active');
+    filterAccesoriesByColor(select);
+  },
+  false
+)
+
+//sunglasses and socks buttons
+let i;
+for (i = 5; i > 1; i = i - 2) {
+  navButtons.item(i).addEventListener('click',
+    function() {
+      loadRemoteAccessories(this);
+    },
+    false)
+}
