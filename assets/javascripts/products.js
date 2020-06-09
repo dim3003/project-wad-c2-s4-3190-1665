@@ -163,18 +163,9 @@ const navButtonsContainer = document.querySelector('.navbar-nav');
 const navButtons = navButtonsContainer.childNodes;
 
 function loadRemoteAccessories(el) {
-
   let navTitle = el.textContent.replace(/\s+/g, '');
-
   let request = new XMLHttpRequest();
-  if (navTitle == 'Socks') {
-    request.open('GET', './socks.json');
-
-  } else if (navTitle == 'Sunglasses') {
-    request.open('GET', './sunglasses.json');
-  } else {
-    console.log('Could not find the JSON')
-  }
+  request.open('GET', './' + navTitle.toLowerCase() + '.json');
 
   request.send();
   request.onload = () => {
@@ -184,7 +175,9 @@ function loadRemoteAccessories(el) {
     //RENDER NEW
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
     let select = document.querySelector('.active');
-    filterAccesoriesByColor(select);
+    if (select) {
+      filterAccesoriesByColor(select);
+    } else {}
   }
 }
 
@@ -196,7 +189,9 @@ navButtons.item(1).addEventListener('click',
     let accessories = hats;
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
     let select = document.querySelector('.active');
-    filterAccesoriesByColor(select);
+    if (select) {
+      filterAccesoriesByColor(select);
+    } else {}
   },
   false
 )
@@ -210,3 +205,18 @@ for (i = 5; i > 1; i = i - 2) {
     },
     false)
 }
+
+/*-----------------
+GLOVES
+------------------*/
+
+let glove = document.createElement('li');
+glove.className = 'nav-item';
+glove.innerHTML = '<button class="nav-link btn btn-outline-secondary mr-3">Gloves</button>';
+
+navButtonsContainer.appendChild(glove);
+
+glove.addEventListener('click',
+  function() {
+    loadRemoteAccessories(glove);
+  }, false)
