@@ -253,5 +253,13 @@ WISHLIST
 //bind whishlistbutton is on line 137/149/192/211
 
 function addToWhishlist(accessory) {
-  console.log(accessory);
+  if (localStorage.accessory1 == undefined) {
+    localStorage.setItem('accessory1', accessory);
+  } else if (localStorage.accessory2 == undefined) {
+    localStorage.setItem('accessory2', accessory);
+  } else if (localStorage.accessory3 == undefined) {
+    localStorage.setItem('accessory3', accessory);
+  } else if (localStorage.accessory3) {
+    alert('No more than 3 elements in the wishlist. Sorry :/');
+  } else {}
 }
