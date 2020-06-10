@@ -130,12 +130,25 @@ filterButtons.forEach(elem =>
     false)
 );
 
-
-
-//addEventListener click filter filterButtons
-
+//all accessories nodelist
 const allProducts = products.childNodes;
 
+//function to bind wishlist BUTTONS
+function bindWishButton(allProducts) {
+  allProducts.forEach((el) => {
+    let wishButton = el.querySelector('.card .card-body .btn');
+    wishButton.addEventListener('click',
+      function() {
+        addToWhishlist(el);
+      },
+      false)
+  });
+}
+
+//Bind whishbuttons when loading for the first time
+bindWishButton(allProducts);
+
+//addEventListener click filter filterButtons
 function filterAccesoriesByColor(el) {
   for (i = 0; i < allProducts.length; i++) {
     allProducts.item(i).style.display = 'none';
@@ -174,6 +187,11 @@ function loadRemoteAccessories(el) {
     products.innerHTML = '';
     //RENDER NEW
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
+
+    //Bind wishbuttons when reloading elements
+    bindWishButton(allProducts);
+
+    //Filter by color if already selected filterbutton
     let select = document.querySelector('.active');
     if (select) {
       filterAccesoriesByColor(select);
@@ -188,6 +206,11 @@ navButtons.item(1).addEventListener('click',
 
     let accessories = hats;
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
+
+    //Bind hats wishlist buttons if reloading
+    bindWishButton(allProducts);
+
+    //filter by color if already clicked filter button
     let select = document.querySelector('.active');
     if (select) {
       filterAccesoriesByColor(select);
@@ -220,3 +243,15 @@ glove.addEventListener('click',
   function() {
     loadRemoteAccessories(glove);
   }, false)
+
+
+
+/*-----------
+WISHLIST
+---------------*/
+
+//bind whishlistbutton is on line 137/149/192/211
+
+function addToWhishlist(accessory) {
+  console.log(accessory);
+}
