@@ -89,7 +89,7 @@ function displayAccessory(accessory) {
   newAccessory.appendChild(my3);
 
   return newAccessory;
-}
+};
 
 let products = document.getElementById('products')
 products.innerHTML = null;
@@ -134,19 +134,20 @@ filterButtons.forEach(elem =>
 const allProducts = products.childNodes;
 
 //function to bind wishlist BUTTONS
-function bindWishButton(allProducts) {
-  allProducts.forEach((el) => {
+function bindWishButton(allProducts, accessories) {
+  let i;
+  allProducts.forEach((el, i) => {
     let wishButton = el.querySelector('.card .card-body .btn');
     wishButton.addEventListener('click',
       function() {
-        addToWhishlist(el);
+        addToWhishlist(accessories[i]);
       },
       false)
   });
 }
 
 //Bind whishbuttons when loading for the first time
-bindWishButton(allProducts);
+bindWishButton(allProducts, hats);
 
 //addEventListener click filter filterButtons
 function filterAccesoriesByColor(el) {
@@ -189,7 +190,7 @@ function loadRemoteAccessories(el) {
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
 
     //Bind wishbuttons when reloading elements
-    bindWishButton(allProducts);
+    bindWishButton(allProducts, accessories);
 
     //Filter by color if already selected filterbutton
     let select = document.querySelector('.active');
@@ -208,7 +209,7 @@ navButtons.item(1).addEventListener('click',
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
 
     //Bind hats wishlist buttons if reloading
-    bindWishButton(allProducts);
+    bindWishButton(allProducts, accessories);
 
     //filter by color if already clicked filter button
     let select = document.querySelector('.active');
@@ -254,11 +255,11 @@ WISHLIST
 
 function addToWhishlist(accessory) {
   if (localStorage.accessory1 == undefined) {
-    localStorage.setItem('accessory1', accessory);
+    localStorage.setItem('accessory1', JSON.stringify(accessory));
   } else if (localStorage.accessory2 == undefined) {
-    localStorage.setItem('accessory2', accessory);
+    localStorage.setItem('accessory2', JSON.stringify(accessory));
   } else if (localStorage.accessory3 == undefined) {
-    localStorage.setItem('accessory3', accessory);
+    localStorage.setItem('accessory3', JSON.stringify(accessory));
   } else if (localStorage.accessory3) {
     alert('No more than 3 elements in the wishlist. Sorry :/');
   } else {}
