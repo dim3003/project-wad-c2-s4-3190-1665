@@ -37,8 +37,8 @@ function displayAccessory(accessory) {
   cardtext.appendChild(em);
 
   let button = document.createElement('button');
-  button.className += 'btn btn-outline-primary';
-  button.textContent = 'Add to wishlist!';
+  button.className += 'btn btn-outline-danger';
+  button.textContent = 'Remove';
 
   cardbody.appendChild(cardtitle);
   cardbody.appendChild(cardtext);
@@ -53,6 +53,7 @@ function displayAccessory(accessory) {
   return newAccessory;
 };
 
+
 function retrieveAccessories() {
   let accessory1 = JSON.parse(localStorage.getItem('accessory1'));
   let accessory2 = JSON.parse(localStorage.getItem('accessory2'));
@@ -65,18 +66,38 @@ function eraseWhishlist() {
   products.innerHTML = '';
 }
 
+
+
 function displayWishList() {
   eraseWhishlist();
   let accessories = retrieveAccessories();
-  console.log(accessories);
-  accessories.forEach((el) =>{
-    let newEl =displayAccessory(el);
-    products.appendChild(newEl);
-  }
-  )
+  accessories.forEach((el) => {
+    if (el != null) {
+      let newEl = displayAccessory(el);
+      products.appendChild(newEl);
 
-
-
+      //binding the button of new elem
+      let newElButton = newEl.querySelector('.btn.btn-outline-danger');
+      newElButton.addEventListener('click',
+        function() {
+          let itemKey = 'accessory' + (accessories.indexOf(el) + 1);
+          removeFromWishlist(itemKey, newEl)
+        },
+        false)
+    } else {}
+  })
 }
+
+
+
+
+function removeFromWishlist(key, htmlComponent) {
+  console.log(key + '   ' + htmlComponent);
+  localStorage.removeItem(key);
+  htmlComponent.remove();
+  displayWishList();
+}
+
+
 
 displayWishList();
