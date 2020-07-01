@@ -1,5 +1,3 @@
-//cd/EPFL Web Dev/hats_and_things
-
 let hat = {
   name: '<name>',
   price: '<price>',
@@ -7,7 +5,7 @@ let hat = {
   imageHref: '<imageHref>',
 
   toString: function() {
-    return (this.name + ", color: " + this.color + ", price: " + this.price + ", image: " + this.image)
+    return (this.name + ", color: " + this.color + ", price: " + this.price + ", image: " + this.imageHref)
   }
 }
 
@@ -20,7 +18,7 @@ function Accessory(name, price, color, image) {
 }
 
 Accessory.prototype.toString = function() {
-  return (this.name + ", color: " + this.color + ", price: " + this.price + ", image: " + this.image);
+  return (this.name + ", color: " + this.color + ", price: " + this.price + ", image: " + this.imageHref);
 }
 
 
