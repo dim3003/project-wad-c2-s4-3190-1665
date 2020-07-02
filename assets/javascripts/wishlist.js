@@ -63,7 +63,7 @@ function retrieveAccessories() {
 }
 
 function eraseWhishlist() {
-  products.innerHTML = '';
+  products.innerText = '';
 }
 
 
