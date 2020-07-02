@@ -258,7 +258,7 @@ function addToWhishlist(accessory) {
     localStorage.setItem('accessory2', JSON.stringify(accessory));
   } else if (localStorage.accessory3 == undefined) {
     localStorage.setItem('accessory3', JSON.stringify(accessory));
-  } else if (localStorage.accessory3) {
+  } else {
     alert('No more than 3 elements in the wishlist. Sorry :/');
-  } else {}
+  }
 }
