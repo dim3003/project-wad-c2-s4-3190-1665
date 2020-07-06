@@ -1,4 +1,4 @@
-let hat = {
+const hat = {
   name: '<name>',
   price: '<price>',
   color: '<color>',
@@ -22,7 +22,7 @@ Accessory.prototype.toString = function() {
 }
 
 
-let hats = [
+const hats = [
   new Accessory('Baseball cap', '11.99', 'red', './assets/images/red/hats/1.png'),
   new Accessory('Baseball cap', '11.99', 'blue', './assets/images/blue/hats/1.png'),
   new Accessory('Baseball cap', '11.99', 'yellow', './assets/images/yellow/hats/1.png'),
@@ -89,8 +89,8 @@ function displayAccessory(accessory) {
   return newAccessory;
 };
 
-let products = document.getElementById('products')
-products.innerHTML = null;
+const products = document.getElementById('products')
+products.innerText = null;
 
 hats.forEach(elem => products.appendChild(displayAccessory(elem)));
 
@@ -102,7 +102,7 @@ const filterButtonsContainer = document.querySelector('.btn-group')
 
 const filterButtons = filterButtonsContainer.childNodes;
 
-let allButton = document.createElement('button');
+const allButton = document.createElement('button');
 allButton.setAttribute('type', 'button');
 allButton.className = 'btn btn-outline-secondary';
 allButton.textContent = 'All';
@@ -183,7 +183,7 @@ function loadRemoteAccessories(el) {
   request.onload = () => {
     let accessories = JSON.parse(request.responseText);
     //REMOVE CURRENT
-    products.innerHTML = '';
+    products.innerText = '';
     //RENDER NEW
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
 
@@ -201,7 +201,7 @@ function loadRemoteAccessories(el) {
 //Hats BUTTONS
 navButtons.item(1).addEventListener('click',
   function() {
-    products.innerHTML = '';
+    products.innerText = '';
 
     let accessories = hats;
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
@@ -232,11 +232,16 @@ for (i = 5; i > 1; i = i - 2) {
 GLOVES
 ------------------*/
 
-let glove = document.createElement('li');
-glove.className = 'nav-item';
-glove.innerHTML = '<button class="nav-link btn btn-outline-secondary mr-3">Gloves</button>';
+const gloveElem = document.createElement('li');
+gloveElem.className = 'nav-item';
 
-navButtonsContainer.appendChild(glove);
+const gloveButton = document.createElement('button');
+gloveButton.className = 'nav-link btn btn-outline-secondary mr-3'
+gloveButton.innerText = 'Gloves';
+
+
+gloveElem.appendChild(gloveButton);
+navButtonsContainer.appendChild(gloveElem);
 
 glove.addEventListener('click',
   function() {
