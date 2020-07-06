@@ -10,11 +10,11 @@ let hat = {
 }
 
 
-function Accessory(name, price, color, image) {
+function Accessory(name, price, color, accessoryImage) {
   this.name = name;
   this.price = price;
   this.color = color;
-  this.imageHref = image;
+  this.imageHref = accessoryImage;
 }
 
 Accessory.prototype.toString = function() {
@@ -41,47 +41,47 @@ function displayAccessory(accessory) {
 
   //Creating the HTML element
 
-  let newAccessory = document.createElement('div');
+  const newAccessory = document.createElement('div');
   newAccessory.className += 'accessory col-sm-4 ' + accessory.color;
 
-  let my3 = document.createElement('div');
+  const my3 = document.createElement('div');
   my3.className += 'card my-3';
 
-  let currency = document.createElement('div');
+  const currency = document.createElement('div');
   currency.className += 'currency btn btn-light disabled';
   currency.textContent = accessory.price;
 
-  let image = document.createElement('img');
-  image.className += 'card-img-top';
-  image.src += accessory.imageHref;
-  image.alt = 'Image of ' + accessory.name;
+  const accessoryImage = document.createElement('img');
+  accessoryImage.className += 'card-img-top';
+  accessoryImage.src += accessory.imageHref;
+  accessoryImage.alt = 'Image of ' + accessory.name;
 
-  let cardbody = document.createElement('div');
+  const cardbody = document.createElement('div');
   cardbody.className += 'card-body text-center';
 
-  let cardtitle = document.createElement('h5');
+  const cardtitle = document.createElement('h5');
   cardtitle.className += 'card-title';
   cardtitle.textContent = accessory.name;
 
-  let cardtext = document.createElement('p');
+  const cardtext = document.createElement('p');
   cardtext.className += 'card-text';
   cardtext.textContent = 'Color: '
 
-  let em = document.createElement('em');
+  const em = document.createElement('em');
   em.textContent = accessory.color;
 
   cardtext.appendChild(em);
 
-  let button = document.createElement('button');
-  button.className += 'btn btn-outline-primary';
-  button.textContent = 'Add to wishlist!';
+  const accessoryButton = document.createElement('button');
+  accessoryButton.className += 'btn btn-outline-primary';
+  accessoryButton.textContent = 'Add to wishlist!';
 
   cardbody.appendChild(cardtitle);
   cardbody.appendChild(cardtext);
-  cardbody.appendChild(button);
+  cardbody.appendChild(accessoryButton);
 
   my3.appendChild(currency);
-  my3.appendChild(image);
+  my3.appendChild(accessoryImage);
   my3.appendChild(cardbody);
 
   newAccessory.appendChild(my3);
