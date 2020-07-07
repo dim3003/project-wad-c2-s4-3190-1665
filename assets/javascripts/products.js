@@ -149,6 +149,7 @@ bindWishButton(allProducts, hats);
 
 //addEventListener click filter filterButtons
 function filterAccesoriesByColor(el) {
+  let i;
   for (i = 0; i < allProducts.length; i++) {
     allProducts.item(i).style.display = 'none';
     const arrayClass = allProducts.item(i).className.split(' ')
@@ -175,13 +176,14 @@ const navButtonsContainer = document.querySelector('.navbar-nav');
 const navButtons = navButtonsContainer.childNodes;
 
 function loadRemoteAccessories(el) {
-  let navTitle = el.textContent.replace(/\s+/g, '');
-  let request = new XMLHttpRequest();
+  const navTitle = el.textContent.replace(/\s+/g, '');
+  const request = new XMLHttpRequest();
   request.open('GET', './' + navTitle.toLowerCase() + '.json');
 
   request.send();
   request.onload = () => {
-    let accessories = JSON.parse(request.responseText);
+    let accessories = request.responseText
+    accessories = JSON.parse(accessories);
     //REMOVE CURRENT
     products.innerText = '';
     //RENDER NEW
@@ -191,7 +193,7 @@ function loadRemoteAccessories(el) {
     bindWishButton(allProducts, accessories);
 
     //Filter by color if already selected filterbutton
-    let select = document.querySelector('.active');
+    const select = document.querySelector('.active');
     if (select) {
       filterAccesoriesByColor(select);
     } else {}
@@ -203,14 +205,14 @@ navButtons.item(1).addEventListener('click',
   function() {
     products.innerText = '';
 
-    let accessories = hats;
+    const accessories = hats;
     accessories.forEach(elem => products.appendChild(displayAccessory(elem)));
 
     //Bind hats wishlist buttons if reloading
     bindWishButton(allProducts, accessories);
 
     //filter by color if already clicked filter button
-    let select = document.querySelector('.active');
+    const select = document.querySelector('.active');
     if (select) {
       filterAccesoriesByColor(select);
     } else {}
@@ -243,9 +245,9 @@ gloveButton.innerText = 'Gloves';
 gloveElem.appendChild(gloveButton);
 navButtonsContainer.appendChild(gloveElem);
 
-glove.addEventListener('click',
+gloveButton.addEventListener('click',
   function() {
-    loadRemoteAccessories(glove);
+    loadRemoteAccessories(this);
   }, false)
 
 
